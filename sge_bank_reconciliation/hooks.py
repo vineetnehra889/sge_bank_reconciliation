@@ -2,24 +2,24 @@ app_name = "sge_bank_reconciliation"
 app_title = "Sehyog Bank Reconciliation"
 app_publisher = "SGE Sehyog"
 app_description = "Bank reconciliation made simple for SGE Sehyog"
-app_email = "nexity38@gmail.com"
+app_email = "vineet.nehra@nexityconsulting.com"
 app_license = "mit"
 
 # Apps
 # ------------------
 
-# required_apps = []
+required_apps = ["frappe/erpnext"]
 
 # Each item in the list will be shown as an app in the apps page
-# add_to_apps_screen = [
-# 	{
-# 		"name": "sge_bank_reconciliation",
-# 		"logo": "/assets/sge_bank_reconciliation/logo.png",
-# 		"title": "Sehyog Bank Reconciliation",
-# 		"route": "/sge_bank_reconciliation",
-# 		"has_permission": "sge_bank_reconciliation.api.permission.has_app_permission"
-# 	}
-# ]
+add_to_apps_screen = [
+	{
+		"name": "sge_bank_reconciliation",
+		"logo": "/assets/sge_bank_reconciliation/images/logo.png",
+		"title": "Sehyog Bank Reconciliation",
+		"route": "/sge-bank-reco",
+		"has_permission": "erpnext.check_app_permission",
+	}
+]
 
 # Includes in <head>
 # ------------------
@@ -86,7 +86,7 @@ app_license = "mit"
 # ------------
 
 # before_install = "sge_bank_reconciliation.install.before_install"
-# after_install = "sge_bank_reconciliation.install.after_install"
+after_install = "sge_bank_reconciliation.setup.install.after_install"
 
 # Uninstallation
 # ------------
@@ -138,34 +138,20 @@ app_license = "mit"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+	"Bank Account": {
+		"on_trash": "sge_bank_reconciliation.overrides.bank_account.on_trash",
+	}
+}
 
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-# 	"all": [
-# 		"sge_bank_reconciliation.tasks.all"
-# 	],
-# 	"daily": [
-# 		"sge_bank_reconciliation.tasks.daily"
-# 	],
-# 	"hourly": [
-# 		"sge_bank_reconciliation.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"sge_bank_reconciliation.tasks.weekly"
-# 	],
-# 	"monthly": [
-# 		"sge_bank_reconciliation.tasks.monthly"
-# 	],
-# }
+scheduler_events = {
+	"hourly": [
+		"sge_bank_reconciliation.apis.rules.scheduler_run_rule_evaluation"
+	],
+}
 
 # Testing
 # -------
@@ -245,7 +231,7 @@ app_license = "mit"
 # ]
 
 # Automatically update python controller files with type annotations for this app.
-# export_python_type_annotations = True
+export_python_type_annotations = True
 
 # default_log_clearing_doctypes = {
 # 	"Logging DocType Name": 30  # days to retain logs
@@ -255,4 +241,9 @@ app_license = "mit"
 # ------------
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
+
+website_route_rules = [
+	{"from_route": "/sge-bank-reco", "to_route": "sge_bank_reco"},
+	{"from_route": "/sge-bank-reco/<path:app_path>", "to_route": "sge_bank_reco"},
+]
 
