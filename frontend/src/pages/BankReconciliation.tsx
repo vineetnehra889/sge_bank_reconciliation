@@ -16,7 +16,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Button } from "@/components/ui/button"
 import { H1 } from "@/components/ui/typography"
 import _ from "@/lib/translate"
-import { HomeIcon } from "lucide-react"
+import { ArrowLeftIcon, HomeIcon } from "lucide-react"
 import { useLayoutEffect, useRef, useState } from "react"
 
 
@@ -41,6 +41,16 @@ const BankReconciliation = () => {
                     <H1 className="text-base font-medium flex items-center"><img src="/assets/sge_bank_reconciliation/images/logo.png" alt="Shree Ganesh" className="h-8 w-auto" />&nbsp; {_("Bank Reconciliation")}</H1>
                     <div className="flex items-center gap-2">
                         <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button variant={'outline'} size='icon' onClick={() => window.location.href = '/desk/bank-clearance/Bank%20Clearance'}>
+                                        <ArrowLeftIcon />
+                                    </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    {_("Back to Bank Clearance")}
+                                </TooltipContent>
+                            </Tooltip>
                             <Tooltip>
                                 <TooltipTrigger asChild>
                                     <Button variant={'outline'} size='icon' onClick={() => window.location.href = '/app/dashboard-screen'}>

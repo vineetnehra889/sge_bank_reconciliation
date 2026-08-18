@@ -153,6 +153,18 @@ scheduler_events = {
 	],
 }
 
+# Fixtures
+# --------
+
+fixtures = [
+	{
+		"doctype": "Workspace Sidebar",
+		"filters": [
+			["name", "in", ["Banking"]]
+		]
+	}
+]
+
 # Testing
 # -------
 
